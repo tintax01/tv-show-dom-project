@@ -15801,5 +15801,3 @@ function getAllShows() {
 		},
 	];
 }
-
-

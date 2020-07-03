@@ -1,31 +1,36 @@
 /* main grid container */
 .grid-container {
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 /* header tag */
-.grid-container > header {
+.header {
 	border-radius: 10px;
 	padding: 10px;
 	width: 20px;
 	text-align: auto;
-	background-color: rgba(166, 168, 38, 0.945);
+	background-color: rgba(231, 27, 180, 0.945);
+	padding: 30px;
 }
 
 /* main div tag */
-.grid-container > div {
-	background-color: rgba(185, 28, 28, 0.8);
+.div {
+	background-color: rgba(240, 236, 11, 0.8);
 	text-align: center;
 	padding: 0px 0;
 	font-size: 10px;
 }
 
 /* image tag */
-.grid-container > img {
-	border: 1px solid rgb(15, 15, 15);
+.imga {
+	border: 1px solid rgb(155, 11, 11);
 	border-radius: 50px;
 	border-style: dashed;
 	padding: 5px;
 	width: 200px;
+}
+
+.Game-of-throne {
+	width: 100px;
+	background-color: rgb(12, 226, 30);
 }
