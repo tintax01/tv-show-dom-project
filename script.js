@@ -7,8 +7,9 @@ function setup() {
 }
 // makePage function to use DOM to manipulate both html/CSS and access the js file
 function makePageForEpisodes(episodeList) {
+	document.getElementById("number-of-episodes").innerText = `Got ${episodeList.length} episode(s)`;
+
 	const rootElem = document.getElementById("root");
-	rootElem.textContent = `Got ${episodeList.length} episode(s)`;
 	getAllEpisodes().forEach((episode) => {
 		const section = document.createElement("section");
 		const header = document.createElement("h2");
@@ -19,24 +20,24 @@ function makePageForEpisodes(episodeList) {
 		imga.width = "200";
 		imga.height = "200";
 		header.innerText =
-			episode.name + episodeNumber(episode.season, episode.number);
+			`${episode.name} - ${episodeNumber(episode.season, episode.number)}`;
 		div.innerHTML = episode.summary;
 		section.appendChild(header);
 		section.appendChild(imga);
 		section.appendChild(div);
 		rootElem.appendChild(section);
 
-		section.classList.add("grid-container"); // CSS and js DOM elements.
+		section.classList.add("tv-episode-card"); // CSS and js DOM elements.
 	});
 }
 
 // Season Numbers and Episodes
-function episodeNumber(season) {
+function episodeNumber(season, episode) {
 	if (season.toString().length < 2) {
-		episode = "0" + season;
+		season = "0" + season;
 	}
-	if (season.toString().length < 2) {
-		episode = "0" + season;
+	if (episode.toString().length < 2) {
+		episode = "0" + episode;
 	}
 	return `S${season}E${episode}`;
 }
