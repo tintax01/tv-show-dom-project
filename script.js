@@ -3,14 +3,19 @@ const allEpisodes = getAllEpisodes();
 const getTVshow = document.getElementById("TvSh");
 
 function setup() {
+	setEpisodeSearchBox();
 	makePageForEpisodes(allEpisodes);
 }
 // makePage function to use DOM to manipulate both html/CSS and access the js file
 function makePageForEpisodes(episodeList) {
-	document.getElementById("number-of-episodes").innerText = `Got ${episodeList.length} episode(s)`;
+
+	displayEpisodeCount(episodeList);
 
 	const rootElem = document.getElementById("root");
-	getAllEpisodes().forEach((episode) => {
+	// Clear episode container if there is anything already
+	rootElem.innerHTML = "";
+
+	episodeList.forEach((episode) => {
 		const section = document.createElement("section");
 		const header = document.createElement("h2");
 		const imga = document.createElement("img");
@@ -42,7 +47,33 @@ function episodeNumber(season, episode) {
 	return `S${season}E${episode}`;
 }
 
-// getTVshow.addEventListener;
+function setEpisodeSearchBox() {
+	const episodeSearchBox = document.getElementById("tv-episode-filter");
+	episodeSearchBox.addEventListener("input", (event) => {
+		// retrieve box value
+		let inputValue = event.target.value;
+		
+		// filter displayed episode 
+		// The search should be case-insensitive
+		//  1 - search in title
+		//  2 - search in summary
+		let filteredEpisodes = allEpisodes.filter((episode) => {
+			let lowerCasedInput = inputValue.toLowerCase();
+			let lowerCasedEpisodeName = episode.name.toLowerCase();
+			let lowerCasedSummary = episode.summary.toLowerCase();
+
+			return lowerCasedEpisodeName.includes(lowerCasedInput) || lowerCasedSummary.includes(lowerCasedInput);
+		});
+
+		makePageForEpisodes(filteredEpisodes);
+	});
+}
+
+function displayEpisodeCount(episodesList) {
+	const episodeCount = `Displaying ${episodesList.length}/${allEpisodes.length} episode(s)`;
+	document.getElementById("number-of-episodes").innerText = episodeCount;
+}
+
 //This function select all the episodes and disiplays the episode for the user
 function selectAllEpisodes(episodeList) {
 	getTVshow.innerHTML = `<option>Select from list</option>`;
