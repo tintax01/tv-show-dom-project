@@ -8,7 +8,6 @@ function setup() {
 }
 // makePage function to use DOM to manipulate both html/CSS and access the js file
 function makePageForEpisodes(episodeList) {
-
 	displayEpisodeCount(episodeList);
 
 	const rootElem = document.getElementById("root");
@@ -24,8 +23,10 @@ function makePageForEpisodes(episodeList) {
 		imga.src = episode.image.medium;
 		imga.width = "200";
 		imga.height = "200";
-		header.innerText =
-			`${episode.name} - ${episodeNumber(episode.season, episode.number)}`;
+		header.innerText = `${episode.name} - ${episodeNumber(
+			episode.season,
+			episode.number
+		)}`;
 		div.innerHTML = episode.summary;
 		section.appendChild(header);
 		section.appendChild(imga);
@@ -52,8 +53,8 @@ function setEpisodeSearchBox() {
 	episodeSearchBox.addEventListener("input", (event) => {
 		// retrieve box value
 		let inputValue = event.target.value;
-		
-		// filter displayed episode 
+
+		// filter displayed episode
 		// The search should be case-insensitive
 		//  1 - search in title
 		//  2 - search in summary
@@ -62,7 +63,10 @@ function setEpisodeSearchBox() {
 			let lowerCasedEpisodeName = episode.name.toLowerCase();
 			let lowerCasedSummary = episode.summary.toLowerCase();
 
-			return lowerCasedEpisodeName.includes(lowerCasedInput) || lowerCasedSummary.includes(lowerCasedInput);
+			return (
+				lowerCasedEpisodeName.includes(lowerCasedInput) ||
+				lowerCasedSummary.includes(lowerCasedInput)
+			);
 		});
 
 		makePageForEpisodes(filteredEpisodes);
@@ -75,26 +79,26 @@ function displayEpisodeCount(episodesList) {
 }
 
 //This function select all the episodes and disiplays the episode for the user
-function selectAllEpisodes(episodeList) {
-	getTVshow.innerHTML = `<option>Select from list</option>`;
-	episodeList.forEach(
-		(listObj) =>
-			(getTVshow.innerHTML += `<option value = "${listObj.id}">${listObj.name}</option>`)
-	);
-	//This listener get a user  to change episodes dynamic upon selection from a dropdown list
-	getTVshow.addEventListener("change", (e) => {
-		let getSelect = e.target.value;
-		getId(getSelect);
-	});
-}
+// function selectAllEpisodes(episodeList) {
+// 	getTVshow.innerHTML = `<option>Select from list</option>`;
+// 	episodeList.forEach(
+// 		(listObj) =>
+// 			(getTVshow.innerHTML += `<option value = "${listObj.id}">${listObj.name}</option>`)
+// 	);
+// 	//This listener get a user  to change episodes dynamic upon selection from a dropdown list
+// 	getTVshow.addEventListener("change", (e) => {
+// 		let getSelect = e.target.value;
+// 		getId(getSelect);
+// 	});
+// }
 
-function getId(showDynamic) {
-	fetch(`https://api.tvmaze.com/shows/82/episodes/${showDynamic}/episodes`)
-		.then((response) => response.json())
-		.then((dataJson) => {
-			makePageForEpisodes(dataJson);
-			search(dataJson);
-			makePageForEpisodes(dataJson);
-		});
-}
+// function getId(showDynamic) {
+// 	fetch(`https://api.tvmaze.com/shows/82/episodes/${showDynamic}/episodes`)
+// 		.then((response) => response.json())
+// 		.then((dataJson) => {
+// 			makePageForEpisodes(dataJson);
+// 			search(dataJson);
+// 			makePageForEpisodes(dataJson);
+// 		});
+//}
 window.onload = setup;
